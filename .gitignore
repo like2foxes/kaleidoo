@@ -1,0 +1,6 @@
+.env
+static/css/
+static/images/
+static/js/
+tmp/
+pg/
