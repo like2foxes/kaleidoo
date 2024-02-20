@@ -1,0 +1,13 @@
+volumes:
+  psql:
+services:
+  psql:
+    image: postgres
+    environment:
+      POSTGRES_USER: nirlir
+      POSTGRES_PASSWORD: nirlir
+      POSTGRES_DB: nirlir
+    volumes:
+      - psql:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
