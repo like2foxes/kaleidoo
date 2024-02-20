@@ -1,0 +1,25 @@
+{{define "body"}}
+{{template "navbar"}}
+<div class="relative overflow-visible overflow-x-auto shadow-md sm:rounded-lg">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+		<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr class="h-6">
+				<th class="text-center border w-1/12" class="px-3 py-3">Id</th>
+				<th class="text-center border" class="px-3 py-3">Customer</th>
+				<th class="text-center border w-1/4" class="px-3 py-3">Number of PMs</th>
+			</tr>
+		</thead>
+		<tbody id="orders_table">
+			{{range .}}
+			{{ template "row" . }}
+			{{else}}
+			<tr class="text-center">
+				<td colspan="4" class="w-full">No PMs found</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+</div>
+{{end}}
+
+{{define "title"}}Forecast{{end}}

@@ -1,0 +1,80 @@
+{{define "modal"}}
+<div id="order_modal" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
+	<div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-lg min-w-fit flex justify-center">
+		<form class="w-full max-w-sm p-4" {{template "action" .Order.ID}}>
+			<div class="md:flex items-center mb-6">
+				<div class="md:w-1/3">
+					<label class="block text-gray-500 font-bold mb-1 md:mb-0" for="customer">Customer:</label>
+				</div>
+				<div class="md:w-2/3">
+					<select name="customer" required autocomplete="true" hx-validate
+						class="min-w-64 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+						<option name="" disabled selected value=""> -- select a customer -- </option>
+						{{range .Customers}}
+						<option name="{{.Name}}" value="{{.ID}}">{{.Name}}</option>
+						{{else}}
+						<option value=""><a href="/customers">No customers found</a></option>
+						{{end}}
+					</select>
+				</div>
+			</div>
+			<div class="md:flex md:items-center mb-6">
+				<div class="md:w-1/3">
+					<label class="block text-gray-500 font-bold mb-1 md:mb-0" for="type">
+						Type:
+					</label>
+				</div>
+				<div class="md:w-2/3">
+					<select required="true" autocomplete="true"
+						class="min-w-64 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+						name="type">
+						<option value="" disabled selected value> -- select type -- </option>
+						<option value="installation">Installation</option>
+						<option value="repair">Repair</option>
+						<option value="pm">Preventive maintenance</option>
+					</select>
+				</div>
+			</div>
+			<div class="md:flex md:items-center mb-6">
+				<div class="md:w-1/3">
+					<label class="block text-gray-500 font-bold mb-1 md:mb-0" for="status">
+						Status:
+					</label>
+				</div>
+				<div class="md:w-2/3">
+					<select required="true" autocomplete="true"
+						class="min-w-64 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+						name="status">
+						<option value="" disabled selected value> -- select status -- </option>
+						<option value="open">Open</option>
+						<option value="close">Close</option>
+						<option value="assigned">Assigned</option>
+						<option value="cancelled">Cancelled</option>
+						<option value="onsite">On-site</option>
+						<option value="travel">Travel</option>
+					</select>
+				</div>
+			</div>
+			<div class="flex justify-between p-2">
+				<button {{template "hx" .Order.ID}}
+					class=" w-24 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit"
+					type="submit" onclick="setTimeout(() => closeModal('order_modal'))">OK</button>
+				<button onclick="closeModal('order_modal')" type="reset"
+					class="w-24 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+					Cancel
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.getElementById('order_modal').style.display = 'block'
+	document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
+
+	window.closeModal = function (modalId) {
+		document.getElementById(modalId)?.remove()
+		document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden')
+	}
+</script>
+{{end}}

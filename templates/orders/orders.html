@@ -1,0 +1,94 @@
+{{define "body"}}
+{{template "navbar"}}
+<div class="relative overflow-visible overflow-x-auto shadow-md sm:rounded-lg">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+		<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr class="h-6">
+				<th class="text-center border w-1/12" class="px-3 py-3">Id</th>
+				<th class="text-center border" class="px-3 py-3">Customer</th>
+				<th class="text-center border w-1/4" class="px-3 py-3 text-left">Type</th>
+				<th class="text-center border w-1/4" class="px-3 py-3">Status
+					<button onclick="toggleFilterMenu()">
+						<svg class="inline cursor-pointer" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+							width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+							stroke-linecap="round" stroke-linejoin="round">
+							<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+						</svg>
+					</button>
+					<div id="status_filter_menu"
+						class="text-lg font-normal capitalize hidden absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+						role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+						<form method="POST" , action="/orders/filter" class="py-1 flex flex-col text-left">
+							<div class="hover:bg-gray-200">
+								<input type="checkbox" name="open" checked />
+								<label for="open">open</label>
+							</div>
+							<div class="hover:bg-gray-200">
+								<input type="checkbox" name="close" checked />
+								<label for="close">close</label>
+							</div>
+							<div class="hover:bg-gray-200">
+								<input type="checkbox" name="assigned" checked />
+								<label for="assigned">assigned</label>
+							</div>
+							<div class="hover:bg-gray-200">
+								<input type="checkbox" name="cancelled" checked />
+								<label for="cancelled">cancelled</label>
+							</div>
+							<div class="hover:bg-gray-200">
+								<input type="checkbox" name="onsite" checked />
+								<label for="onsite">onsite</label>
+							</div>
+							<div class="hover:bg-gray-200">
+								<input type="checkbox" name="travel" checked />
+								<label for="travel">travel</label>
+							</div>
+							<div>
+								<button onclick="toggleFilterMenu()" type="submit" hx-boost="false"
+									hx-post="/orders/filter" hx-swap="outerHTML" hx-target="#orders_table"
+									class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+									Filter
+								</button>
+								<button onclick="toggleFilterMenu()" type="reset" class="bg-red-500
+									hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+									Cancel
+								</button>
+							</div>
+						</form>
+					</div>
+				</th>
+				<th class="text-center border w-1/6" class="px-3 py-3"></th>
+			</tr>
+		</thead>
+		<tbody id="orders_table">
+			{{range .}}
+			{{ template "row" . }}
+			{{else}}
+			<tr class="text-center">
+				<td colspan="4" class="w-full">No orders found</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+</div>
+
+<div class="flex justify-center mt-4">
+	<button hx-get="/orders/add" hx-target="body" hx-swap="beforeend"
+		class="shadow bg-blue-500 hover:bg-blue-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+		type="button">
+		Add
+	</button>
+</div>
+<script type="text/javascript">
+	function toggleFilterMenu() {
+		var menu = document.getElementById('status_filter_menu');
+		if (menu.classList.contains('hidden')) {
+			menu.classList.remove('hidden');
+		} else {
+			menu.classList.add('hidden');
+		}
+	}
+</script>
+{{end}}
+
+{{define "title"}}Orders{{end}}

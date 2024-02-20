@@ -1,0 +1,19 @@
+{{define "row"}}
+<tr class="py-4 h-16" data-id="row-{{.ID}}">
+	<td class="border text-center">{{.ID}}</td>
+	<td class="border text-center text-base font-semibold">{{.Customer}}</td>
+	<td class="border text-center text-base">{{.Type}}</td>
+	<td class="border text-center text-base">{{.Status}}</td>
+	<td class="border text-center">
+		<div class="flex justify-around md:justify-start">
+			<button class="hover:shadow-lg" hx-get="/orders/{{.ID}}" hx-target="body" hx-swap="beforeend">
+				{{ template "edit_svg" }}
+			</button>
+
+			<button class="hover:shadow-lg" hx-delete="/orders/{{.ID}}" hx-target="closest tr" hx-swap="outerHTML">
+				{{ template "delete_svg" }}
+			</button>
+		</div>
+	</td>
+</tr>
+{{end}}

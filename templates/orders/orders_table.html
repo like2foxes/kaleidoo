@@ -1,0 +1,11 @@
+{{define "orders_table"}}
+<tbody id="orders_table">
+	{{range .}}
+	{{ template "row" . }}
+	{{else}}
+	<tr class="text-center">
+		<td colspan="4" class="w-full">No orders found</td>
+	</tr>
+	{{end}}
+</tbody>
+{{end}}

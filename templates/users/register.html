@@ -1,0 +1,28 @@
+{{define "title"}}Register{{end}}
+{{define "body"}}
+{{template "navbar"}}
+<div class="flex items-center justify-center">
+	<div class="w-full max-w-xs">
+		<form action="/register" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+			<div class="mb-4">
+				<label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+				<input name="email" type="email" placeholder="mail@mail.com" required
+					class="shadow appearance-none invalid:border invalid:border-red-500 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+			</div>
+			<div class="mb-4">
+				<label for="password">Password</label>
+				<input name="password" type="password" placeholder="password" required min-length="8"
+					class="shadow appearance-none invalid:border invalid:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+					id="password" type="password" placeholder="******************" />
+			</div>
+			<div class="flex flex-col items-center">
+				<button
+					class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-32 self-center mt-4"
+					type="submit">Register</button>
+				<span class="mt-4">already have an account?</span>
+				<a href="/login" class="text-center text-red-500">Sign in!</a>
+			</div>
+		</form>
+	</div>
+</div>
+{{end}}

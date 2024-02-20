@@ -1,0 +1,33 @@
+{{define "title"}}Customers{{end}}
+{{define "body"}}
+{{template "navbar"}}
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+		<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr class="h-6">
+				<th class="text-center border w-1/12" class="px-3 py-3">Id</th>
+				<th class="text-center border" class="px-3 py-3">Name</th>
+				<th class="text-center border w-1/4" class="px-3 py-3 text-left">Logo</th>
+				<th class="text-center border w-1/6" class="px-3 py-3"></th>
+			</tr>
+		</thead>
+		<tbody id="customers_table">
+			{{range .}}
+			{{ template "row" . }}
+			{{else}}
+			<tr class="text-center">
+				<td colspan="4" class="w-full">No customers found</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+</div>
+
+<div class="flex justify-center mt-4">
+	<button hx-get="/customers/add" hx-target="body" hx-swap="beforeend"
+		class="shadow bg-blue-500 hover:bg-blue-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+		type="button">
+		Add
+	</button>
+</div>
+{{end}}

@@ -1,0 +1,9 @@
+{{define "action"}}
+method="PUT"
+action="/orders/{{.}}"
+{{end}}
+{{define "hx"}}
+hx-put="/orders/{{.}}"
+hx-target="[data-id='row-{{.}}']"
+hx-swap="outerHTML"
+{{end}}
