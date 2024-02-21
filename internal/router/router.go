@@ -69,7 +69,7 @@ func Start(jwtSecret string) {
 			return new(jwtCustomClaims)
 		},
 		SigningKey:  []byte(jwtSecret),
-		TokenLookup: "cookie:token",
+		TokenLookup: "cookie:jwt_token",
 	}
 	auth.Use(echojwt.WithConfig(config))
 	auth.GET("", autherize)

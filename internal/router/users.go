@@ -2,7 +2,6 @@ package router
 
 import (
 	"context"
-	"encoding/json"
 	"log"
 	"net/http"
 	"time"
@@ -23,17 +22,15 @@ func getRegister(c echo.Context) error {
 
 func postLogin(q *pg.Queries, ctx context.Context, jwtSecret string) func(c echo.Context) error {
 	return func(c echo.Context) error {
-		json_map := make(map[string]interface{})
-		err := json.NewDecoder(c.Request().Body).Decode(&json_map)
-		if err != nil {
-			c.String(http.StatusInternalServerError, "internal error")
+		password := c.FormValue("password")
+		email := c.FormValue("email")
+
+		if (email == "") || (password == "") {
+			return c.String(http.StatusBadRequest, "invalid credentials")
 		}
-		log.Println(json_map)
-		if len(json_map) == 0 {
-			return c.String(http.StatusBadRequest, "invalid request")
-		}
-		password := json_map["password"].(string)
-		email := json_map["email"].(string)
+
+		log.Println("email: ", email)
+		log.Println("password: ", password)
 
 		hashedPass, err := q.GetUserPassword(ctx, email)
 		if err != nil {
@@ -122,7 +119,6 @@ func hashPassword(password string) (string, error) {
 
 func checkPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	log.Println("err => ", err)
 	return err == nil
 }
 
