@@ -1,6 +1,6 @@
 {{define "layout"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
 	<title>{{template "title"}}</title>
@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="css/style.css" rel="stylesheet">
 	<script src="js/htmx.min.js"></script>
+	{{template "scripts"}}
 </head>
 
 <body hx-boost="true">

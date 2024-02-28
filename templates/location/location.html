@@ -1,0 +1,17 @@
+{{define "title"}}
+Location
+{{end}}
+{{define "scripts"}}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="js/map.js" type="module"></script>
+{{end}}
+{{define "body"}}
+{{template "navbar"}}
+
+<body class="h-full">
+	<div id="map" class="h-full"></div>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApLUI6rfmAajpVokFzI1r5oEgdX6X4Q7k&loading=async&callback=initMap&v=weekly"
+		defer></script>
+</body>
+{{end}}

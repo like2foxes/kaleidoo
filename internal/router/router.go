@@ -45,6 +45,7 @@ func Start(jwtSecret string) {
 	ts.AddFiles("putOrder", "templates/orders/order_row.html", "templates/shared/delete_svg.html", "templates/shared/edit_svg.html")
 	ts.AddFiles("filterOrders", "templates/orders/orders_table.html", "templates/orders/order_row.html", "templates/shared/delete_svg.html", "templates/shared/edit_svg.html")
 	ts.AddShared("forecast").AddFiles("forecast", "templates/forecast/forecast.html", "templates/forecast/forecast_row.html")
+	ts.AddShared("location").AddFiles("location", "templates/location/location.html")
 	ts.AddFiles("logo", "templates/customers/detected_name.html")
 
 	t := &Template{
@@ -91,6 +92,7 @@ func Start(jwtSecret string) {
 
 	auth.GET("/forecast", getForecast(queries, ctx))
 
+	auth.GET("/location", getLocation)
 	auth.POST("/logo", postLogo)
 
 	e.Logger.Fatal(e.Start(":3000"))
